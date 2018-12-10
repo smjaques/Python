@@ -1,0 +1,11 @@
+apple
+password
+12345
+secret
+welcome
+admin
+pineapple
+other
+login
+pokemon
+guess

@@ -1,0 +1,3 @@
+Testing how to read from another file
+I have no idea what I'm doing
+I'm bad at this...

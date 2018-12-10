@@ -1,0 +1,74 @@
+# Project 2 - Moonlander
+# 
+# Name:  Sydney Jaques
+# Instructor: Workman
+
+def showWelcome():
+   print("\nWelcome aboard the Lunar Module Flight Simulator\n")
+   print("   To begin you must specify the LM's initial altitude")
+   print("   and fuel level.  To simulate the actual LM use")
+   print("   values of 1300 meters and 500 liters, respectively.\n")
+   print("   Good luck and may the force be with you!\n") 
+   
+def getFuel():
+   #ask user
+   fuelAmount = int(input("Enter the initial amount of fuel on board the LM (in liters): "))
+   #check   
+   while fuelAmount <= 0:
+      print("ERROR: Amount of fuel must be positive, pleae try again")
+      fuelAmount = int(input("Enter the initial amount of fuel on board the LM (in liters): "))
+   #loop
+   return fuelAmount
+
+def getAltitude():
+   altitude = int(input("Enter the initial altitude of the LM (in meters): "))
+   while altitude < 1 or altitude > 9999:
+      print("ERROR: Altitude must be between 1 and 9999, inclusive, please try again")
+      altitude = int(input("Enter the initial altitude of the LM (in meters): ")) 
+   return altitude
+  
+def displayLMState(elapsedTime, altitude, velocity, fuelAmount, fuelRate):
+   #print("\nLM state at retrorocket cutoff")
+   print("Elapsed Time: " ,elapsedTime, "s")
+   print("        Fuel: ", fuelAmount, "l")
+   print("        Rate: ", fuelRate, "l/s")
+   print("    Altitude: ", "%.2f" %altitude,  "m")
+   print("    Velocity: ", "%.2f" % velocity, "m/s")
+
+def getFuelRate(currentFuel):
+   #ask for how much fuel they have (currentFuel)
+   rate = int(input("Enter fuel rate (0-9, 0=freefall, 5=constant velocity, 9=max thrust): "))
+   if rate < 0 or rate > 9:
+      #making sure they input a valid integer
+      print("ERROR: Fuel rate must be between 0 and 9, inclusive\n")
+      rate = int(input("Enter fuel rate (0-9, 0=freefall, 5=constant velocity, 9=max thrust): "))
+   if rate < currentFuel:
+      return rate
+   elif currentFuel < rate:
+      return currentFuel
+
+def updateAcceleration(gravity, fuelRate):
+   acceleration = float(gravity) * ((int(fuelRate) / 5) -1)
+   return acceleration
+
+	
+def updateAltitude(altitude, velocity, acceleration):
+   altitude2 = float(altitude) + float(velocity) + (float(acceleration)/2)
+   return altitude2
+
+def updateVelocity(velocity, acceleration):
+   velocity2 = float(velocity) + float(acceleration)
+   return velocity2
+
+def updateFuel(fuel, fuelRate):
+   fuel2 = fuel - fuelRate
+   return fuel2
+
+def displayLMLandingStatus(velocity):
+   if velocity <= 0 and velocity >= -1:
+      print("Status at landing - The eagle has landed!")
+   if velocity <= -1 and velocity >= -10:
+      print("Status at landing - Enjoy your oxygen while it lasts!")
+   if velocity <= -10:
+      print("Status at landing - Ouch - that hurt!")
+

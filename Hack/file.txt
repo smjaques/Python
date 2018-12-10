@@ -1,0 +1,3 @@
+this is the file we need to zip
+and then set a password
+and then guess that password with my program

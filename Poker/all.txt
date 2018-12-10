@@ -1,0 +1,7 @@
+6
+0 3c 1s 2d
+1 Ac 2s 4d
+2 5d 7d 6d
+3 4c 4d 4s
+4 Js Jc 5d
+5 2s 5s Jd

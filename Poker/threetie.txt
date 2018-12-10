@@ -1,0 +1,5 @@
+4
+0 As 4d 2c
+1 1c Ad 8h
+2 2h Ah 6c
+3 Jh 1s Ac
