@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/bin/bash
+
 #import funcs files
 import sys
 from pokerFuncs import *
@@ -21,10 +22,10 @@ currentBestHand = []
 num_players = input()
 for player in range(int(num_players)):
     player_hand = {}
-    line = raw_input()
+    line = input()
     line = line.split(' ')
-    current_hand = findBestHand(line)
-    #returns dictionary with data filled in
+    current_hand = findBestHand(line) #returns dictionary with data filled in
+    
 
     if len(currentBestHand) == 0:
         currentBestHand.append(current_hand) 
@@ -35,9 +36,8 @@ for player in range(int(num_players)):
         elif currentBestHand[0]['best'] == current_hand['best']:
             currentBestHand = tieComparisons(currentBestHand, current_hand)
 
-ids = ''
+
+
 for i in currentBestHand:
-    ids += str(i['id']) + ' '    
-    #this is originally had it to print each id with end='', 
-    #but the executeable didn't like that
-print(ids)
+    print (i['id'], ' ', end='')
+print()

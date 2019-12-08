@@ -1,6 +1,5 @@
-#pokerFuncs.py has functions used by markPoker.py 
 
-#make T-> 10, J-> 11, Q-> 12, K-> 13, twice through with A-> 1 and A-> 14
+
 def replaceFaceCards(array):
     for i in range(len(array)):
         if array[i] == 'T':
@@ -16,10 +15,15 @@ def replaceFaceCards(array):
 
     return array
 
+        #sort by card number, split into two arrays
+
 
 #handArray looks like: ['0', '2c', 'As', Jh']
 #function will find the best hand, and fill in all data in best_hand dictionary
 def findBestHand(handArray):
+    #make T-> 10, J-> 11, Q-> 12, K-> 13, twice through with A-> 1 and A-> 14
+    #sort numbers
+    #two arrays, one with card num, other with card suit (indices match)
     best_hand = {}
     best_hand['id'] = int(handArray[0])
     suits = []
@@ -32,22 +36,18 @@ def findBestHand(handArray):
     nums.sort(reverse=True)
     best_hand['highest'] = nums[0]
     best_hand['hand'] = nums[1:]
-
     #checking for flush and straight
     for i in range(2):
         if (nums[0] == nums[1] + 1) and (nums[1] == nums[2] + 1):
             if (len(set(suits)) == 1):
-                #means straight flush
-                best_hand['best'] = 5 
+                best_hand['best'] = 5 #means straight flush
                 return best_hand
-            else: 
-                #just a straight
+            else: #just a straight
                 best_hand['best'] = 3
                 return best_hand
         else:
             break
-        if 14 in nums:
-            #there is an ace, need to check for straight when A=1
+        if 14 in nums: #there is an ace, need to check for straight when A=1
             nums[0] = 1
             nums.sort(reverse=True)
             best_hand['highest'] = nums[0]
@@ -77,27 +77,22 @@ def findBestHand(handArray):
     else:
         best_hand['best'] = 0
     return best_hand
-
-#function that compares two players' hands(dictionaries) for who has best
-#used to determine winner of ties           
+            
 def tieComparisons(array, current_hand):
     original = array[0]
-
-    #comparing highest cards
     if original['highest'] > current_hand['highest']:
         return array
 
     elif original['highest'] < current_hand['highest']:
         return [current_hand]
 
-    #check tie for pair
+    #check tie for pair or three of kind
     if 'high_pair' in original:
         if original['high_pair'] > current_hand['high_pair']:
             return array
         elif original['high_pair'] < current_hand['high_pair']:
             return [current_hand]
 
-    #check tie for three of a kind
     if 'high_triple' in original:
         if original['high_triple'] > current_hand['high_triple']:
             return array
@@ -105,7 +100,7 @@ def tieComparisons(array, current_hand):
             return [current_hand]
     
 
-    #compare next highest cards
+
     if original['hand'][0] > current_hand['hand'][0]:
         return array
 
@@ -113,12 +108,10 @@ def tieComparisons(array, current_hand):
         return [current_hand]
         
     else:
-        #tie!
         if original['hand'][1] == current_hand['hand'][1]:
             array.append(current_hand)
             return array
-        
-        #comparing last card for highest value
+
         if original['hand'][1] > current_hand['hand'][1]:
             return array
         else:
